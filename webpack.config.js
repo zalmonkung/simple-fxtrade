@@ -1,7 +1,9 @@
 const path = require('path');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const webpack = require('webpack');
 
 const browser = {
-  entry: "./build/index.js",
+  entry: "./index.js",
 
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -16,7 +18,8 @@ const browser = {
         loader: "babel-loader",
 
         options: {
-          presets: ["env"]
+          presets: ["env"],
+          plugins: ["lodash"]
         },
       },
       {
@@ -32,10 +35,15 @@ const browser = {
     net: 'empty',
     tls: 'empty'
   },
+
+  plugins: [
+    new LodashModuleReplacementPlugin,
+    new webpack.optimize.UglifyJsPlugin
+  ]
 }
 
 const node = {
-  entry: "./build/index.js",
+  entry: "./index.js",
 
   target: 'node',
 
@@ -51,7 +59,8 @@ const node = {
         loader: "babel-loader",
 
         options: {
-          presets: ["env"]
+          presets: ["env"],
+          plugins: ["lodash"]
         },
       },
       {
@@ -60,6 +69,11 @@ const node = {
       },
     ],
   },
+
+  plugins: [
+    new LodashModuleReplacementPlugin,
+    new webpack.optimize.UglifyJsPlugin
+  ]
 }
 
 module.exports = [browser, node];

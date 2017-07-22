@@ -11,11 +11,6 @@ const examples = async () => {
 
   // Get the instruments for the account
   const {instruments} = await fx.instruments();
-
-
-
-
-
 }
 
 // Call the wrapper function
